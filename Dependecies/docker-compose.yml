@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+    mongo:
+        # networks:
+        #     insight_network_interanl:
+        #         ipv4_address: 172.20.0.5
+        image: mongo:4.4
+        restart: always
+        volumes:
+            - "$PWD/mongo-entrypoint/:/docker-entrypoint-initdb.d/"
+            - ./mongo-volume:/data/db
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=root
+            - MONGO_INITDB_ROOT_PASSWORD=password
+            - MONGO_INITDB_DATABASE=root-db
+
+        ports:
+            - "27017:27017"
+        command: mongod
